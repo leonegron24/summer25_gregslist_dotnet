@@ -55,8 +55,6 @@ public class CarsRepository : IRepository<Car>
     throw new NotImplementedException();
   }
 
-
-
   public Car GetById(int carId)
   {
     throw new NotImplementedException();
@@ -69,9 +67,19 @@ public class CarsRepository : IRepository<Car>
 
   public List<Car> GetAll()
   {
-    string sql = "SELECT * FROM cars;";
+    string sql = @"
+    SELECT
+    cars.*,
+    accounts.*
+    FROM cars
+    JOIN accounts ON cars.creator_id = accounts.id
+    ORDER BY cars.created_at ASC;";
 
-    List<Car> cars = _db.Query<Car>(sql).ToList();
+    List<Car> cars = _db.Query(sql, (Car car, Account account) =>
+    {
+      car.Creator = account;
+      return car;
+    }).ToList();
 
     return cars;
   }
