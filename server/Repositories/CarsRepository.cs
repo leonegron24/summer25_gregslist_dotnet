@@ -61,7 +61,14 @@ public class CarsRepository : IRepository<Car>
 
   public void Delete(int carId)
   {
-    throw new NotImplementedException();
+    string sql = "DELETE FROM cars WHERE id = @CarId LIMIT 1;";
+
+    int rowsAffected = _db.Execute(sql, new { CarId = carId });
+
+    if (rowsAffected != 1)
+    {
+      throw new Exception(rowsAffected + " rows are gone and that ain't good");
+    }
   }
 
   public Car GetById(int carId)

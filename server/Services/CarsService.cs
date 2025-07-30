@@ -18,6 +18,20 @@ public class CarsService
     return car;
   }
 
+  internal string DeleteCar(int carId, Account userInfo)
+  {
+    Car carToDelete = GetCarById(carId);
+
+    if (carToDelete.CreatorId != userInfo.Id)
+    {
+      throw new Exception($"THAT AIN'T YOUR CAR {userInfo.Name.ToUpper()}! 🚓🚓🚓🚓🚓");
+    }
+
+    _carsRepository.Delete(carId);
+
+    return $"Your {carToDelete.Year} {carToDelete.Make} {carToDelete.Model} has been deleted!";
+  }
+
   internal Car GetCarById(int carId)
   {
     Car car = _carsRepository.GetById(carId);
