@@ -2,7 +2,7 @@ namespace gregslist_dotnet.Interfaces;
 
 public interface IRepository<T>
 {
-  public T Create(T updateData);
+  public T Create(T data);
   internal List<T> GetAll();
   public T GetById(int id);
   public T Update(T updateData);

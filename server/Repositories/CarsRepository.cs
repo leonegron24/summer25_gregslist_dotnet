@@ -12,9 +12,42 @@ public class CarsRepository : IRepository<Car>
     _db = db;
   }
 
-  public Car Create(Car updateData)
+  public Car Create(Car carData)
   {
-    throw new NotImplementedException();
+    string sql = @"
+    INSERT INTO
+    cars (
+      make,
+      model,
+      year,
+      price,
+      img_url,
+      description,
+      engine_type,
+      color,
+      mileage,
+      has_clean_title,
+      creator_id
+    )
+    VALUES (
+      @Make,
+      @Model,
+      @Year,
+      @Price,
+      @ImgUrl,
+      @Description,
+      @EngineType,
+      @Color,
+      @Mileage,
+      @HasCleanTitle,
+      @CreatorId
+    );
+    
+    SELECT * FROM cars WHERE id = LAST_INSERT_ID();";
+
+    Car car = _db.Query<Car>(sql, carData).SingleOrDefault();
+
+    return car;
   }
 
   public void Delete(int carId)
