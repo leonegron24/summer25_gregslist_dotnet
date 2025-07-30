@@ -82,3 +82,12 @@ FROM
   JOIN accounts ON cars.creator_id = accounts.id
 ORDER BY
   cars.created_at ASC;
+
+SELECT
+  cars.*,
+  accounts.*
+FROM
+  cars
+  JOIN accounts ON cars.creator_id = accounts.id
+WHERE
+  cars.id = 1;

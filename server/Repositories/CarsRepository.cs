@@ -43,11 +43,20 @@ public class CarsRepository : IRepository<Car>
       @CreatorId
     );
     
-    SELECT * FROM cars WHERE id = LAST_INSERT_ID();";
+    SELECT
+    cars.*,
+    accounts.*
+    FROM cars
+    JOIN accounts ON cars.creator_id = accounts.id
+    WHERE cars.id = LAST_INSERT_ID();";
 
-    Car car = _db.Query<Car>(sql, carData).SingleOrDefault();
+    Car newCar = _db.Query(sql, (Car car, Account account) =>
+    {
+      car.Creator = account;
+      return car;
+    }, carData).SingleOrDefault();
 
-    return car;
+    return newCar;
   }
 
   public void Delete(int carId)
