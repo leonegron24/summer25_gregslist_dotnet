@@ -83,9 +83,26 @@ public class CarsRepository : IRepository<Car>
     return foundCar;
   }
 
-  public Car Update(Car updateData)
+  public void Update(Car updateData)
   {
-    throw new NotImplementedException();
+    string sql = @"
+    UPDATE cars
+    SET
+    img_url = @ImgUrl,
+    description = @Description,
+    price = @Price,
+    engine_type = @EngineType,
+    mileage = @Mileage,
+    color = @Color,
+    has_clean_title = @HasCleanTitle
+    WHERE id = @Id LIMIT 1;";
+
+    int rowsAffected = _db.Execute(sql, updateData);
+
+    if (rowsAffected != 1)
+    {
+      throw new Exception(rowsAffected + " rows are now updated and that is bad!");
+    }
   }
 
   public List<Car> GetAll()

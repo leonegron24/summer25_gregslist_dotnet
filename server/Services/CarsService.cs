@@ -35,4 +35,27 @@ public class CarsService
     List<Car> cars = _carsRepository.GetAll();
     return cars;
   }
+
+  internal Car UpdateCar(int carId, Car carUpdateData, Account userInfo)
+  {
+    Car originalCar = GetCarById(carId);
+
+    if (originalCar.CreatorId != userInfo.Id)
+    {
+      throw new Exception($"THIS AIN'T YOUR CAR, {userInfo.Name.ToUpper()}!");
+    }
+
+    originalCar.ImgUrl = carUpdateData.ImgUrl ?? originalCar.ImgUrl;
+    originalCar.Description = carUpdateData.Description ?? originalCar.Description;
+    originalCar.Color = carUpdateData.Color ?? originalCar.Color;
+    originalCar.EngineType = carUpdateData.EngineType ?? originalCar.EngineType;
+    // NOTE make sure bools or ints are nullable in your model
+    originalCar.Mileage = carUpdateData.Mileage ?? originalCar.Mileage;
+    originalCar.Price = carUpdateData.Price ?? originalCar.Price;
+    originalCar.HasCleanTitle = carUpdateData.HasCleanTitle ?? originalCar.HasCleanTitle;
+
+    _carsRepository.Update(originalCar);
+
+    return originalCar;
+  }
 }

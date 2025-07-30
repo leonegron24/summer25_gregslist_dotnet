@@ -100,3 +100,9 @@ FROM
   JOIN accounts ON cars.creator_id = accounts.id
 WHERE
   cars.id = 2;
+
+UPDATE cars
+SET
+  color = 'green'
+WHERE
+  id = 3;
