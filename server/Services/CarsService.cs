@@ -12,7 +12,7 @@ public class CarsService
 
   internal List<Car> GetCars()
   {
-    List<Car> cars = _carsRepository.GetCars();
+    List<Car> cars = _carsRepository.GetAll();
     return cars;
   }
 }
