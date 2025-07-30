@@ -91,3 +91,12 @@ FROM
   JOIN accounts ON cars.creator_id = accounts.id
 WHERE
   cars.id = 1;
+
+SELECT
+  cars.*,
+  accounts.*
+FROM
+  cars
+  JOIN accounts ON cars.creator_id = accounts.id
+WHERE
+  cars.id = 2;

@@ -66,7 +66,21 @@ public class CarsRepository : IRepository<Car>
 
   public Car GetById(int carId)
   {
-    throw new NotImplementedException();
+    string sql = @"
+    SELECT
+    cars.*,
+    accounts.*
+    FROM cars
+    JOIN accounts ON cars.creator_id = accounts.id
+    WHERE cars.id = @CarId;";
+
+    Car foundCar = _db.Query(sql, (Car car, Account account) =>
+    {
+      car.Creator = account;
+      return car;
+    }, new { CarId = carId }).SingleOrDefault();
+
+    return foundCar;
   }
 
   public Car Update(Car updateData)
