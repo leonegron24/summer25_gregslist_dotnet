@@ -58,3 +58,8 @@ VALUES
     FALSE,
     '65f87bc1e02f1ee243874743'
   );
+
+SELECT
+  *
+FROM
+  cars;
