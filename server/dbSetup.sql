@@ -87,7 +87,7 @@ WHERE
 
 UPDATE cars SET color = 'green' WHERE id = 3;
 
-SELECT * FROM accounts;
+SELECT * FROM homes;
 
 CREATE TABLE homes (
     id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
