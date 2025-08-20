@@ -2,7 +2,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.2.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "gregslist_dotnet", "server\gregslist_dotnet.csproj", "{5733E221-5891-DCDF-DB10-E4A1F00D3FF9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "gregslist_dotnet", "gregslist_dotnet.csproj", "{5733E221-5891-DCDF-DB10-E4A1F00D3FF9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

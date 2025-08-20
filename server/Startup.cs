@@ -38,7 +38,9 @@ public class Startup
     services.AddScoped<AccountService>();
 
     services.AddScoped<CarsService>();
+    services.AddScoped<HomesService>();
     services.AddScoped<CarsRepository>();
+    services.AddScoped<HomesRepository>();
   }
 
   private void ConfigureCors(IServiceCollection services)

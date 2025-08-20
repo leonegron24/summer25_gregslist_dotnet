@@ -116,12 +116,17 @@ INSERT INTO
         creator_id
     )
 VALUES (
-        2,
-        2,
-        2,
-        500,
+        5,
+        5,
+        1,
+        3000000,
         'https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8aG91c2V8ZW58MHx8MHx8fDA%3D',
-        'Very Old house',
-        1889,
-        '6863472b4e7f09c4109e0b4b'
+        'Crazy House',
+        2020,
+        '685df65b38949a162240dacd'
     );
+
+SELECT homes.*, accounts.*
+FROM homes
+    JOIN accounts ON homes.creator_id = accounts.id
+ORDER BY homes.created_at ASC;
