@@ -13,19 +13,78 @@ public class HomesRepository : IRepository<Home>
         _db = db;
     }
 
-    public Home Create(Home data)
+    public Home Create(Home homeData)
     {
-        throw new NotImplementedException();
+        string sql = @"
+        INSERT INTO
+        homes (
+            bedrooms,
+            bathrooms,
+            levels,
+            price,
+            img_url,
+            description,
+            year,
+            creator_id
+        )
+        VALUES (
+            @Bedrooms,
+            @Bathrooms,
+            @Levels,
+            @Price,
+            @ImgUrl,
+            @Description,
+            @Year,
+            @CreatorId
+        );
+
+        SELECT homes.*, accounts.* 
+        FROM homes 
+        INNER JOIN accounts ON homes.creator_id = accounts.id
+        WHERE homes.id = LAST_INSERT_ID();
+        ";
+
+        Home newHome = _db.Query(sql, (Home home, Account account) =>
+        {
+            home.Creator = account;
+            return home;
+        }, homeData).SingleOrDefault();
+
+        return newHome;
     }
 
-    public void Delete(int id)
+    public void Delete(int homeId)
     {
-        throw new NotImplementedException();
+        string sql = @"
+        DELETE FROM homes 
+        WHERE id = @HomeId LIMIT 1;
+        ";
+
+        int rowsAffected = _db.Execute(sql, new { HomeId = homeId });
+
+        if (rowsAffected != 1)
+        {
+            throw new Exception(rowsAffected + "rows have been affected and that is not good");
+        }
+
     }
 
-    public Home GetById(int id)
+    public Home GetById(int homeId)
     {
-        throw new NotImplementedException();
+        string sql = @"
+        SELECT homes.*, accounts.*
+        FROM homes
+        INNER JOIN accounts ON homes.creator_id = accounts.id
+        WHERE homes.id = @HomeId
+        ORDER BY homes.created_at ASC;
+        ";
+
+        Home foundHome = _db.Query(sql, (Home home, Account account) =>
+        {
+            home.Creator = account;
+            return home;
+        }, new { HomeId = homeId }).SingleOrDefault();
+        return foundHome;
     }
 
     public void Update(Home updateData)
@@ -38,7 +97,7 @@ public class HomesRepository : IRepository<Home>
         string sql = @"
         SELECT homes.*, accounts.*
         FROM homes
-        JOIN accounts ON homes.creator_id = accounts.id
+        INNER JOIN accounts ON homes.creator_id = accounts.id
         ORDER BY homes.created_at ASC;
         ";
         List<Home> homes = _db.Query(sql, (Home home, Account account) =>

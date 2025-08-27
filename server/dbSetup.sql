@@ -130,3 +130,11 @@ SELECT homes.*, accounts.*
 FROM homes
     JOIN accounts ON homes.creator_id = accounts.id
 ORDER BY homes.created_at ASC;
+
+SELECT *
+FROM homes
+    JOIN accounts ON homes.creator_id = accounts.id
+WHERE
+    homes.id = 6
+
+DELETE FROM * homes WHERE id = 8 LIMIT 1

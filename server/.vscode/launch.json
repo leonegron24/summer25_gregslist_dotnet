@@ -6,7 +6,7 @@
       "type": "coreclr",
       "request": "launch",
       "preLaunchTask": "build",
-      "program": "${workspaceFolder}/bin/Debug/net9.0/gregslist_dotnet.dll",
+      "program": "${workspaceFolder}/bin/Debug/net8.0/gregslist_dotnet.dll",
       "args": [],
       "cwd": "${workspaceFolder}",
       "stopAtEntry": false
