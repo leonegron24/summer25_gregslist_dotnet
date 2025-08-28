@@ -87,9 +87,27 @@ public class HomesRepository : IRepository<Home>
         return foundHome;
     }
 
-    public void Update(Home updateData)
+    public void Update(Home homeToUpdate)
     {
-        throw new NotImplementedException();
+        string sql = @"
+        UPDATE homes 
+        SET 
+            bedrooms = @Bedrooms,
+            bathrooms = @Bathrooms,
+            description = @Description,
+            levels = @Levels,
+            img_url = @ImgUrl
+        WHERE 
+            id = @Id 
+            LIMIT 1;
+        ";
+
+        int rowsAffected = _db.Execute(sql, homeToUpdate);
+
+        if (rowsAffected != 1)
+        {
+            throw new Exception(rowsAffected + "rows have been affected and that is not good");
+        }
     }
 
     public List<Home> GetAll()

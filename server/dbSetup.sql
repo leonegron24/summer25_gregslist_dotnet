@@ -138,3 +138,17 @@ WHERE
     homes.id = 6
 
 DELETE FROM * homes WHERE id = 8 LIMIT 1
+
+UPDATE homes SET description = "updating description" WHERE id = 2;
+
+UPDATE homes
+SET
+    bedrooms = 4,
+    bathrooms = 2,
+    description = "changing stuff here",
+    levels = 2
+WHERE
+    id = 4
+LIMIT 1;
+
+";
