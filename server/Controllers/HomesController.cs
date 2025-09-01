@@ -73,9 +73,9 @@ public class HomesController : ControllerBase
         }
     }
 
-    [HttpPut]
+    [HttpPut("{homeId}")]
     [Authorize]
-    public async Task<ActionResult<Home>> UpdateHome(int homeId, Home homeData)
+    public async Task<ActionResult<Home>> UpdateHome(int homeId, [FromBody] Home homeData)
     {
         try
         {
